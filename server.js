@@ -11,6 +11,6 @@ function onClientConnected(sock) {
 
     i.on('line', function(line) {
         console.log('Message Received: %s', line);
-        sock.write(line.toUpperCase());
+        sock.write(line.toUpperCase() + "\n");
     });
 };

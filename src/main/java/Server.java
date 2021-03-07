@@ -15,6 +15,7 @@ class Server {
       byte[] reply = ("Message Received: " + s.toUpperCase()).getBytes(StandardCharsets.UTF_8);
       DatagramPacket sendPacket = new DatagramPacket(reply, reply.length, address, port);
       serverSocket.send(sendPacket);
+      receiveData = new byte[1024];
     }
   }
 }
