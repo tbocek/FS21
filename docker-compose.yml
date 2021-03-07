@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  hello:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - ./.db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb
