@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"time"
 
 	_ "github.com/lib/pq"
 )
@@ -24,6 +25,17 @@ func main() {
 		panic(err)
 	}
 	defer db.Close()
+
+	err = db.Ping()
+	now := time.Now()
+	for err != nil && now.Add(time.Duration(10)*time.Second).After(time.Now()) {
+		// check the connection
+		err = db.Ping()
+		time.Sleep(time.Second)
+	}
+	if err != nil {
+		panic(err)
+	}
 
 	sql := "create table if not exists test (id int, name varchar(255))"
 	_, err = db.Exec(sql)
