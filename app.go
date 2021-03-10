@@ -28,7 +28,7 @@ func main() {
 
 	err = db.Ping()
 	now := time.Now()
-	for err != nil && now.Add(time.Duration(10)*time.Second).After(time.Now()) {
+	for err != nil && now.Add(time.Duration(30)*time.Second).After(time.Now()) {
 		// check the connection
 		err = db.Ping()
 		time.Sleep(time.Second)
