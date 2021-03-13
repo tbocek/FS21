@@ -1,0 +1,18 @@
+[http.routers.dashboard]
+rule = "PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
+entrypoints = ["web"]
+service = "api@internal"
+#middlewares = ["auth"]
+
+#[http.middlewares.auth.basicAuth]
+#users = ["test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/"]
+
+[http.routers.myservice]
+rule = "PathPrefix(`/`)"
+entrypoints = ["web"]
+service = "myservice"
+
+[[http.services.myservice.loadBalancer.servers]]
+url = "http://service1"
+[[http.services.myservice.loadBalancer.servers]]
+url = "http://service2"

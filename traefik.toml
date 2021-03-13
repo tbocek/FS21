@@ -1,0 +1,14 @@
+[entryPoints.web]
+address = ":80"
+
+[api]
+dashboard = true
+
+[providers.file]
+filename = "traefik_dynamic.toml"
+
+[log]
+#filePath = "traefik.log“
+level = "INFO"
+
+[accessLog]
