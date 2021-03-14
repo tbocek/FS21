@@ -12,6 +12,10 @@ rule = "PathPrefix(`/`)"
 entrypoints = ["web"]
 service = "myservice"
 
+[http.services.myservice.loadBalancer.healthCheck]
+interval = "3s"
+timeout = "1s"
+
 [[http.services.myservice.loadBalancer.servers]]
 url = "http://service1"
 [[http.services.myservice.loadBalancer.servers]]
