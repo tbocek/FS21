@@ -1,1 +1,42 @@
-{"admin":{"listen":"0.0.0.0:2019"},"apps":{"http":{"servers":{"srv0":{"listen":[":81"],"routes":[{"handle":[{"handler":"vars","root":"/static"},{"handler":"templates"},{"handler":"file_server","hide":["Caddyfile"]}]}]}}}},"logging":{"logs":{"default":{"level":"DEBUG"}}}}
+{
+  "admin": {
+    "listen": "0.0.0.0:2019"
+  },
+  "apps": {
+    "http": {
+      "servers": {
+        "srv0": {
+          "listen": [
+            ":81"
+          ],
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "vars",
+                  "root": "/static"
+                },
+                {
+                  "handler": "templates"
+                },
+                {
+                  "handler": "file_server",
+                  "hide": [
+                    "Caddyfile"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "logging": {
+    "logs": {
+      "default": {
+        "level": "DEBUG"
+      }
+    }
+  }
+}
