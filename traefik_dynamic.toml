@@ -3,8 +3,8 @@ rule = "PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
 entrypoints = ["web"]
 service = "api@internal"
 
-#[http.middlewares.auth.basicAuth]
-#users = ["test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/"]
+[http.middlewares.auth.basicAuth]
+users = ["test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/"]
 
 #[http.middlewares.test-jwtAuth.plugin.jwtAuth]
 #source = "jwtSource"
