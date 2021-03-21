@@ -2,21 +2,24 @@
 rule = "PathPrefix(`/api`) || PathPrefix(`/dashboard`)"
 entrypoints = ["web"]
 service = "api@internal"
-#middlewares = ["auth"]
 
 #[http.middlewares.auth.basicAuth]
 #users = ["test:$apr1$H6uskkkW$IgXLP6ewTrSuBkTrqE8wj/"]
+
+#[http.middlewares.test-jwtAuth.plugin.jwtAuth]
+#source = "jwtSource"
+#forwardAuthorization = true
 
 [http.routers.myservice]
 rule = "PathPrefix(`/`)"
 entrypoints = ["web"]
 service = "myservice"
+#middlewares = ["test-jwtAuth"]
+#middlewares = ["auth"]
 
 #[http.services.myservice.loadBalancer.healthCheck]
 #interval = "3s"
 #timeout = "1s"
-
-#[http.services.myservice.loadBalancer.sticky.cookie]
 
 [[http.services.myservice.loadBalancer.servers]]
 url = "http://service:8080"

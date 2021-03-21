@@ -12,3 +12,6 @@ filename = "traefik_dynamic.toml"
 level = "INFO"
 
 [accessLog]
+
+#[authSources.jwtSource.jwt]
+#signingSecret = "super-secret"

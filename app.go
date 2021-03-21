@@ -4,7 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
+	"strconv"
 	"time"
 
 	_ "github.com/lib/pq"
@@ -19,19 +21,25 @@ const (
 )
 
 var (
-	db *sql.DB
+	db  *sql.DB
+	rnd int
 )
 
 func dbQuery(w http.ResponseWriter, r *http.Request) {
 	sqlStatement := `SELECT id, name FROM test`
 	var name string
 	var id int
+	if rnd == 0 {
+		rand.Seed(time.Now().Unix())
+		rnd = rand.Int()
+	}
 	row := db.QueryRow(sqlStatement)
+	log.Printf("rnd: %v", rnd)
 	switch err := row.Scan(&id, &name); err {
 	case sql.ErrNoRows:
 		fmt.Println("No rows were returned!")
 	case nil:
-		w.Write([]byte("DB: " + name))
+		w.Write([]byte("DB: " + name + " / " + strconv.Itoa(rnd)))
 	default:
 		panic(err)
 	}
@@ -73,7 +81,8 @@ func main() {
 	}
 	fmt.Printf("Created Table!")
 
-	http.HandleFunc("/", dbQuery)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	server := &http.Server{Addr: ":8080", Handler: http.HandlerFunc(dbQuery)}
+	//server.SetKeepAlivesEnabled(false)
+	server.ListenAndServe()
 
 }
