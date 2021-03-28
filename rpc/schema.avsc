@@ -1,0 +1,7 @@
+{"namespace": "ch.hsr.dsl",
+ "type": "record",  "name": "AMessage",
+ "fields": [
+  {"name": "request", "type": "string"},
+  {"name": "code", "type": "int"}
+ ]
+}
