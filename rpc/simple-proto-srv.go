@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/golang/protobuf/proto"
-	pb "github.com/tbocek/VSS-RPC/go-gen2"
 	"net"
 )
 
@@ -23,7 +22,7 @@ func main() {
 	binary := make([]byte, 100)
 	n, _ := conn.Read(binary)
 
-	m := &pb.AMessage{}
+	m := &AMessage{}
 	if err := proto.Unmarshal(binary[:n], m); err != nil {
 		panic(err)
 	}

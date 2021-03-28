@@ -10,7 +10,7 @@ import (
 func main() {
 	fmt.Println("Listening...")
 
-	schema, err := ioutil.ReadFile("schema.avsc")
+	schema, err := ioutil.ReadFile("rpc/schema.avsc")
 	if err != nil {
 		fmt.Println(err)
 	}

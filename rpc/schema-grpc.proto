@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+service MessageService {
+    rpc SendMessage (AMessage) returns(Empty);
+}
+
+message AMessage {
+    int32 code = 1;
+    string message = 2;
+}
+
+message Empty {}
