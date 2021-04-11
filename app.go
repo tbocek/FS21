@@ -82,7 +82,7 @@ func main() {
 	fmt.Printf("Created Table!")
 
 	server := &http.Server{Addr: ":8080", Handler: http.HandlerFunc(dbQuery)}
-	//server.SetKeepAlivesEnabled(false)
+	server.SetKeepAlivesEnabled(false)
 	server.ListenAndServe()
 
 }
