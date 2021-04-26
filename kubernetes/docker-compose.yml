@@ -10,7 +10,7 @@ services:
     command: [nginx-debug, '-g', 'daemon off;']
 
   service:
-    image: 127.0.0.1:5000/app
+    image: 192.168.1.166:5000/app:1.0
     build: .
     deploy:
       mode: replicated
