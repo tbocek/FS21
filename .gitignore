@@ -1,3 +1,5 @@
 .idea
 .gradle
 build
+ethereum/dist
+ethereum/node_modules
