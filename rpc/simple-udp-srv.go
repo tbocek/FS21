@@ -8,7 +8,7 @@ import (
 
 func main() {
 	fmt.Println("listening...")
-	inet := &net.UDPAddr{net.IPv4zero, 7000, ""}
+	inet := &net.UDPAddr{IP: net.IPv4zero, Port: 7000}
 	udpConn, err := net.ListenUDP("udp", inet)
 	if err != nil {
 		panic(err)
@@ -20,7 +20,7 @@ func main() {
 		panic(err)
 	}
 	fmt.Printf("connecting... read: %d, addr: %v, data: %v, decoded: %v\n",
-		n, b2, b[:n], binary.BigEndian.Uint32(b))
+		n, b2, b[:n], binary.LittleEndian.Uint32(b))
 	//fmt.Printf("connecting... read: %d, addr: %v, data: %v, decoded: %v\n",
 	//	n, b2, b[:n], binary.LittleEndian.Uint32(b))
 }

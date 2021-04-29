@@ -1,48 +1,17 @@
 version: "3"
 
 services:
-#  lb3:
-#    image: haproxy:alpine
-#    ports:
-#      - 82:80
-#    volumes:
-#      - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
-#    depends_on:
-#      - service1
-#      - service2
-  lb2:
+  lb:
     image: nginx:alpine
-    ports:
-      - 443:443
-    volumes:
-      - "./default.conf:/etc/nginx/conf.d/default.conf"
-      - "./ca.pem:/tmp/ca.pem"
-      - "./nginx-selfsigned.crt:/tmp/nginx-selfsigned.crt"
-      - "./nginx-selfsigned.key:/tmp/nginx-selfsigned.key"
-    depends_on:
-      - service
-    networks:
-      - internal
-      - external
-    command: [nginx-debug, '-g', 'daemon off;']
-
-  lb1:
-    image: traefik:2.4
     ports:
       - 80:80
     volumes:
-      - "./traefik.toml:/traefik.toml"
-      - "./traefik_dynamic.toml:/traefik_dynamic.toml"
-    depends_on:
-      - service
-    networks:
-      - internal
-      - external
+      - "./default.conf:/etc/nginx/conf.d/default.conf"
+    command: [nginx-debug, '-g', 'daemon off;']
 
   service:
+    image: 127.0.0.1:5000/app
     build: .
-    networks:
-      - internal
     deploy:
       mode: replicated
       replicas: 2
@@ -55,10 +24,8 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
       - POSTGRES_DB=mydb
-    networks:
-      - internal
-
-networks:
-  external:
-  internal:
-    internal: true
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 1s
+      timeout: 5s
+      retries: 15

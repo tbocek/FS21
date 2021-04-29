@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	host     = "db"
+	host     = "db.app.svc.cluster.local"
 	port     = 5432
 	user     = "postgres"
 	password = "password"
@@ -64,6 +64,7 @@ func main() {
 		time.Sleep(time.Second)
 	}
 	if err != nil {
+		time.Sleep(time.Hour * 100)
 		panic(err)
 	}
 
