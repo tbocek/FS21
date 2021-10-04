@@ -58,12 +58,12 @@ const abi = [
     "type": "function"
   }
 ];
-const contractAddress = "0xc8adb8c77068315893d3066634e08706b3d5a3d4";
-window.ethereum.enable();
-const provider = new providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
-const contract_ro = new ethers.Contract(contractAddress, abi, provider);
-const contract_rw = new ethers.Contract(contractAddress, abi, signer);
+const contractAddress = "0xae0ff93544e717ef17b09530e2b1be06ff9ee6b1";
+
+let provider;
+let signer;
+let contract_ro;
+let contract_rw;
 
 export default {
   data: function () {
@@ -78,8 +78,14 @@ export default {
   created: function () {
     window.addEventListener('load', async () => {
       // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-      if (typeof contract_ro === 'undefined') {
+      if (!window.ethereum) {
         this.status = 'No web3? You should consider trying MetaMask!'
+      } else {
+        window.ethereum.enable();
+        provider = new providers.Web3Provider(window.ethereum);
+        signer = provider.getSigner();
+        contract_ro = new ethers.Contract(contractAddress, abi, provider);
+        contract_rw = new ethers.Contract(contractAddress, abi, signer);
       }
     })
   },

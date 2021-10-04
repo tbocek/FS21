@@ -1,4 +1,4 @@
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.9;
 
 contract Notary {
 
@@ -8,7 +8,7 @@ contract Notary {
         stamps[msg.sender][hash] = block.timestamp;
     }
 
-    function verify(address recipient, bytes32 hash) public constant returns (uint) {
+    function verify(address recipient, bytes32 hash) public view returns (uint) {
         return stamps[recipient][hash];
     }
 }

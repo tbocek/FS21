@@ -24,6 +24,6 @@ module.exports = {
     },
     plugins: [
         new VueLoaderPlugin(),
-        new NodePolyfillPlugin(),
+        new NodePolyfillPlugin()
     ]
 }
