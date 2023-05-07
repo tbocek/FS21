@@ -58,7 +58,7 @@ const abi = [
     "type": "function"
   }
 ];
-const contractAddress = "0xae0ff93544e717ef17b09530e2b1be06ff9ee6b1";
+const contractAddress = "0x6f4BDa64922e1E45DBDd3403535127408125e6B8";
 
 let provider;
 let signer;
