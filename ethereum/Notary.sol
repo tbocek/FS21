@@ -1,8 +1,8 @@
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.21;
 
 contract Notary {
 
-    mapping (address => mapping (bytes32 => uint)) stamps;
+    mapping (address => mapping (bytes32 => uint256)) stamps;
 
     function store(bytes32 hash) public {
         stamps[msg.sender][hash] = block.timestamp;
